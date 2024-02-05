@@ -14,6 +14,9 @@ export const findAllComments = () => Comment.find();
 export const findCommentsByBlogId = (blogId: string) =>
 	Comment.find({ blogId: blogId });
 
+export const findCommentsByUserId = (userId: string) =>
+	Comment.find({ creatorId: userId });
+
 export const findCommentsByParentCommentId = (parentCommentId: string) =>
 	Comment.find({ parentCommentId: parentCommentId });
 

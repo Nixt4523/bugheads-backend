@@ -6,6 +6,7 @@ import 'module-alias/register';
 
 import authRoutes from '@routes/authRoutes';
 import blogRoutes from '@routes/blogRoutes';
+import commentRoutes from '@routes/commentRoutes';
 import userRoutes from '@routes/userRoutes';
 
 import { requestLogger, responseLogger } from '@middlewares/logger';
@@ -29,6 +30,7 @@ app.use(responseLogger);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/blogs', blogRoutes);
+app.use('/comments', commentRoutes);
 
 app.listen(PORT, () => {
 	databaseConnection()
