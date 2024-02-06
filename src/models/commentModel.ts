@@ -6,22 +6,22 @@ export type TComment = InferSchemaType<typeof CommentSchema>;
 const Comment = model('Comment', CommentSchema);
 export default Comment;
 
-export const createBlogComment = (values: Partial<TComment>) =>
-	new Comment(values).save().then((comment) => comment.toObject());
-
 export const findAllComments = () => Comment.find();
 
 export const findCommentsByBlogId = (blogId: string) =>
-	Comment.find({ blogId: blogId });
+	Comment.find({ parentCommentId: null, blogId: blogId }).populate('replies');
+
+export const findRepliesByCommentId = (commentId: string) =>
+	Comment.find({ parentCommentId: commentId }).populate('replies');
 
 export const findCommentsByUserId = (userId: string) =>
 	Comment.find({ creatorId: userId });
 
-export const findCommentsByParentCommentId = (parentCommentId: string) =>
-	Comment.find({ parentCommentId: parentCommentId });
-
 export const findCommentById = (commentId: string) =>
 	Comment.findById(commentId);
+
+export const createComment = (values: Partial<TComment>) =>
+	new Comment(values).save().then((comment) => comment.toObject());
 
 export const updateCommentById = (
 	commentId: string,

@@ -2,14 +2,14 @@ import { Router } from 'express';
 
 import {
 	deleteUser,
-	updateUserDetails,
+	updateUser,
 	updateUserPassword,
 } from '@controllers/userControllers';
 import { verifyUserTokenAndAuthorization } from '@middlewares/tokenVerification';
 
 const router = Router();
 
-router.put('/:userId', verifyUserTokenAndAuthorization, updateUserDetails);
+router.put('/:userId', verifyUserTokenAndAuthorization, updateUser);
 router.put(
 	'/changePassword/:userId',
 	verifyUserTokenAndAuthorization,

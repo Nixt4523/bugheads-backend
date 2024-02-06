@@ -1,7 +1,12 @@
 import {
+	deleteComment,
 	getAllComments,
 	getCommentById,
 	getCommentsByBlogId,
+	getRepliesByCommentId,
+	updateComment,
+	writeBlogComment,
+	writeReplyComment,
 } from '@controllers/commentControllers';
 import {
 	verifyUserToken,
@@ -14,9 +19,11 @@ const router = Router();
 
 router.get('/all', verifyUserTokenAndAdmin, getAllComments);
 router.get('/:commentId', verifyUserToken, getCommentById);
-router.get('/:blogId', verifyUserToken, getCommentsByBlogId);
-router.post('/', verifyUserToken);
-router.put('/:commentId', verifyUserTokenAndAuthorization);
-router.delete('/:commentId', verifyUserTokenAndAuthorization);
+router.get('/blog/:blogId', verifyUserToken, getCommentsByBlogId);
+router.get('/replies/:commentId', verifyUserToken, getRepliesByCommentId);
+router.post('/', verifyUserToken, writeBlogComment);
+router.post('/reply', verifyUserToken, writeReplyComment);
+router.put('/:commentId', verifyUserTokenAndAuthorization, updateComment);
+router.delete('/:commentId', verifyUserTokenAndAuthorization, deleteComment);
 
 export default router;

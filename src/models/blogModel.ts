@@ -6,9 +6,6 @@ export type TBlog = InferSchemaType<typeof BlogSchema>;
 const Blog = model<TBlog>('Blog', BlogSchema);
 export default Blog;
 
-export const createBlog = (values: Partial<TBlog>) =>
-	new Blog(values).save().then((blog) => blog.toObject());
-
 export const findAllBlogs = async (filters: any) => {
 	if (filters.featured === 'true') {
 		return findFeaturedBlogs();
@@ -27,18 +24,16 @@ export const findAllBlogs = async (filters: any) => {
 	return Blog.find();
 };
 
-export const findBlogById = (blogId: string) => Blog.findById(blogId);
+const findFeaturedBlogs = () => Blog.find({ isFeatured: true });
 
-export const findFeaturedBlogs = () => Blog.find({ isFeatured: true });
-
-export const findNewestBlogs = () =>
+const findNewestBlogs = () =>
 	Blog.aggregate([
 		{
 			$sort: { createdAt: -1 },
 		},
 	]);
 
-export const findMostLikedBlogs = () =>
+const findMostLikedBlogs = () =>
 	Blog.aggregate([
 		{
 			$project: {
@@ -62,11 +57,15 @@ export const findMostLikedBlogs = () =>
 		},
 	]);
 
-export const findBlogsByTag = (tag: string) =>
-	Blog.find({ tags: tag }).limit(5);
+const findBlogsByTag = (tag: string) => Blog.find({ tags: tag }).limit(5);
+
+export const findBlogById = (blogId: string) => Blog.findById(blogId);
 
 export const findBlogsByUserId = (userId: string) =>
 	Blog.find({ userId: userId });
+
+export const createBlog = (values: Partial<TBlog>) =>
+	new Blog(values).save().then((blog) => blog.toObject());
 
 export const updateBlogById = (blogId: string, values: Partial<TBlog>) =>
 	Blog.findByIdAndUpdate(blogId, { $set: values }, { new: true });

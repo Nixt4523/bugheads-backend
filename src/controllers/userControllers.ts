@@ -8,7 +8,7 @@ import {
 } from '@models/userModel';
 import { Request, Response } from 'express';
 
-export const updateUserDetails = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response) => {
 	const userId = req.params.userId;
 	const updatedDetails: TUser = req.body;
 
@@ -57,6 +57,11 @@ export const updateUserPassword = async (req: Request, res: Response) => {
 export const deleteUser = async (req: Request, res: Response) => {
 	const userId = req.params.userId;
 	try {
+		const existingUser = await findUserById(userId);
+		if (!existingUser) {
+			return res.status(404).json('USER DOES NOT EXISTS');
+		}
+
 		await deleteUserById(userId);
 
 		return res.status(200).json('USER DELETED');
