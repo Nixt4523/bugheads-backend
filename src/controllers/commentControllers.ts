@@ -1,3 +1,4 @@
+import { logger } from '@middlewares/logger';
 import { findBlogById, updateBlogById } from '@models/blogModel';
 import {
 	TComment,
@@ -18,6 +19,7 @@ export const getAllComments = async (req: Request, res: Response) => {
 		const comments = await findAllComments();
 		return res.status(200).json(comments);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -33,6 +35,7 @@ export const getCommentById = async (req: Request, res: Response) => {
 
 		return res.status(200).json(comment);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -48,6 +51,7 @@ export const getCommentsByBlogId = async (req: Request, res: Response) => {
 		const comment = await findCommentsByBlogId(blogId);
 		return res.status(200).json(comment);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -63,6 +67,7 @@ export const getCommentsByUserId = async (req: Request, res: Response) => {
 		const comments = await findCommentsByUserId(userId);
 		return res.status(200).json(comments);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -78,6 +83,7 @@ export const getRepliesByCommentId = async (req: Request, res: Response) => {
 		const comment = await findRepliesByCommentId(commentId);
 		return res.status(200).json(comment);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -105,6 +111,7 @@ export const writeBlogComment = async (req: Request, res: Response) => {
 
 		return res.status(200).json(comment);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -137,6 +144,7 @@ export const writeReplyComment = async (req: Request, res: Response) => {
 
 		return res.status(200).json(comment);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -154,6 +162,7 @@ export const updateComment = async (req: Request, res: Response) => {
 		const comment = await updateCommentById(commentId, updatedComment);
 		return res.status(200).json(comment);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -169,6 +178,7 @@ export const deleteComment = async (req: Request, res: Response) => {
 		await deleteCommentById(commentId);
 		return res.status(200).json('COMMENT DELETED');
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };

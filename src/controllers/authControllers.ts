@@ -1,5 +1,6 @@
 import { decryptPassword, encryptPassword } from '@managers/passwordManager';
 import { createAuthToken } from '@managers/tokenManager';
+import { logger } from '@middlewares/logger';
 import { createUser, findUserByEmail } from '@models/userModel';
 import { Request, Response } from 'express';
 
@@ -20,6 +21,7 @@ export const register = async (req: Request, res: Response) => {
 
 		return res.status(201).json('REGISTERED SUCCESSFULLY');
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -46,6 +48,7 @@ export const login = async (req: Request, res: Response) => {
 
 		return res.status(200).json({ ...otherDetails, accessToken });
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };

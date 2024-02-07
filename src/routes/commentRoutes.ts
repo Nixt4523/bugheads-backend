@@ -23,7 +23,15 @@ router.get('/blog/:blogId', verifyUserToken, getCommentsByBlogId);
 router.get('/replies/:commentId', verifyUserToken, getRepliesByCommentId);
 router.post('/', verifyUserToken, writeBlogComment);
 router.post('/reply', verifyUserToken, writeReplyComment);
-router.put('/:commentId', verifyUserTokenAndAuthorization, updateComment);
-router.delete('/:commentId', verifyUserTokenAndAuthorization, deleteComment);
+router.put(
+	'/:commentId/:userId',
+	verifyUserTokenAndAuthorization,
+	updateComment
+);
+router.delete(
+	'/:commentId/:userId',
+	verifyUserTokenAndAuthorization,
+	deleteComment
+);
 
 export default router;

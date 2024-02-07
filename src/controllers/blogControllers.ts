@@ -1,3 +1,4 @@
+import { logger } from '@middlewares/logger';
 import {
 	TBlog,
 	createBlog,
@@ -17,6 +18,7 @@ export const getAllBlogs = async (req: Request, res: Response) => {
 		const blogs = await findAllBlogs(filters);
 		return res.status(200).json(blogs);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -32,6 +34,7 @@ export const getBlogById = async (req: Request, res: Response) => {
 
 		return res.status(200).json(blog);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -48,6 +51,7 @@ export const getBlogsByUserId = async (req: Request, res: Response) => {
 		const blogs = await findBlogsByUserId(userId);
 		return res.status(200).json(blogs);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -60,6 +64,7 @@ export const writeBlog = async (req: Request, res: Response) => {
 		const blog = await createBlog({ title, content, thumbnail, userId: id });
 		return res.status(201).json(blog);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -77,6 +82,7 @@ export const updateBlog = async (req: Request, res: Response) => {
 		const blog = await updateBlogById(blogId, updatedDetails);
 		return res.status(200).json(blog);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -92,6 +98,7 @@ export const deleteBlog = async (req: Request, res: Response) => {
 		await deleteBlogById(blogId);
 		return res.status(200).json('BLOG DELETED');
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };

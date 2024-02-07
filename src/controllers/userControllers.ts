@@ -1,4 +1,5 @@
 import { decryptPassword, encryptPassword } from '@managers/passwordManager';
+import { logger } from '@middlewares/logger';
 import {
 	TUser,
 	deleteUserById,
@@ -21,6 +22,7 @@ export const updateUser = async (req: Request, res: Response) => {
 		const user = await updateUserById(userId, updatedDetails);
 		return res.status(200).json(user);
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -50,6 +52,7 @@ export const updateUserPassword = async (req: Request, res: Response) => {
 			return res.status(403).json('WRONG CREDENTIALS');
 		}
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };
@@ -66,6 +69,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 		return res.status(200).json('USER DELETED');
 	} catch (error) {
+		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
 };

@@ -9,7 +9,7 @@ import blogRoutes from '@routes/blogRoutes';
 import commentRoutes from '@routes/commentRoutes';
 import userRoutes from '@routes/userRoutes';
 
-import { requestLogger, responseLogger } from '@middlewares/logger';
+import { logger, requestLogger, responseLogger } from '@middlewares/logger';
 import rateLimiter from '@middlewares/rateLimiter';
 
 import databaseConnection from '@utils/databaseConnection';
@@ -35,11 +35,11 @@ app.use('/comments', commentRoutes);
 app.listen(PORT, () => {
 	databaseConnection()
 		.then(() => {
-			console.log('Connected to Database');
-			console.log(`Server Started on : http://localhost:${PORT}`);
+			logger.info('[DB CONNECTION] : Connected');
+			logger.info(`[SERVER] : http://localhost:${PORT}`);
 		})
 		.catch((error) => {
-			console.log(error);
+			logger.error(`[ERROR] : ${error}`);
 			process.exit(1);
 		});
 });
