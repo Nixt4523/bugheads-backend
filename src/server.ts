@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { Express } from 'express';
@@ -22,6 +23,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 app.use(helmet());
+app.use(cookieParser());
 
 app.use(rateLimiter);
 app.use(requestLogger);

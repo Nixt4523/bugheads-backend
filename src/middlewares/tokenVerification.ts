@@ -6,13 +6,12 @@ export const verifyUserToken = (
 	res: Response,
 	next: NextFunction
 ) => {
-	const authHeaders = req.headers.token;
+	const userAuthToken = req.cookies.accessToken;
 
-	if (!authHeaders) {
+	if (!userAuthToken) {
 		return res.status(401).json('NOT AUTHENTICATED');
 	}
 
-	const userAuthToken = authHeaders.toString().split(' ')[1];
 	const user = verifyAuthToken(userAuthToken);
 
 	if (!user) {

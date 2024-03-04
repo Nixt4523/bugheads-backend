@@ -46,9 +46,17 @@ export const login = async (req: Request, res: Response) => {
 
 		const { password: pass, ...otherDetails } = user.toObject();
 
-		return res.status(200).json({ ...otherDetails, accessToken });
+		res.cookie('accessToken', accessToken);
+		return res.status(200).json({ ...otherDetails });
 	} catch (error) {
 		logger.error(`[ERROR] : ${error}`);
 		return res.status(500).json(error);
 	}
+};
+
+export const logout = async (req: Request, res: Response) => {
+	return res
+		.clearCookie('accessToken')
+		.status(200)
+		.json('SUCCESSFULLY LOGGED OUT');
 };
