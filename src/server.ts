@@ -5,10 +5,7 @@ import express, { Express } from 'express';
 import helmet from 'helmet';
 import 'module-alias/register';
 
-import authRoutes from '@routes/authRoutes';
-import blogRoutes from '@routes/blogRoutes';
-import commentRoutes from '@routes/commentRoutes';
-import userRoutes from '@routes/userRoutes';
+import routes from '@routes/routes';
 
 import { logger, requestLogger, responseLogger } from '@middlewares/logger';
 import rateLimiter from '@middlewares/rateLimiter';
@@ -29,10 +26,7 @@ app.use(rateLimiter);
 app.use(requestLogger);
 app.use(responseLogger);
 
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
-app.use('/blogs', blogRoutes);
-app.use('/comments', commentRoutes);
+app.use('/', routes);
 
 app.listen(PORT, () => {
 	databaseConnection()
