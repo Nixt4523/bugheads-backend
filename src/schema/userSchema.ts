@@ -24,7 +24,7 @@ const UserSchema = new Schema(
 			type: String,
 			default: '',
 		},
-		savedBlogs: [
+		bookmarkedBlogs: [
 			{
 				type: Schema.Types.ObjectId,
 				ref: 'Blog',

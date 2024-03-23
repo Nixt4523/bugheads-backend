@@ -15,7 +15,7 @@ export const findRepliesByCommentId = (commentId: string) =>
 	Comment.find({ parentCommentId: commentId }).populate('replies');
 
 export const findCommentsByUserId = (userId: string) =>
-	Comment.find({ creatorId: userId });
+	Comment.find({ userId: userId });
 
 export const findCommentById = (commentId: string) =>
 	Comment.findById(commentId);

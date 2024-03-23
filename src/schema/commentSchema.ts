@@ -11,7 +11,7 @@ const CommentSchema = new Schema(
 			required: true,
 			ref: 'Blog',
 		},
-		creatorId: {
+		userId: {
 			type: Schema.Types.ObjectId,
 			required: true,
 			ref: 'User',

@@ -101,7 +101,7 @@ export const writeBlogComment = async (req: Request, res: Response) => {
 		const comment = await createComment({
 			content,
 			blogId,
-			creatorId: id,
+			userId: id,
 		});
 
 		const comments = existingBlog.comments;
@@ -126,13 +126,13 @@ export const writeReplyComment = async (req: Request, res: Response) => {
 			return res.status(404).json('COMMENT NOT FOUND');
 		}
 
-		if (existingComment.creatorId == id) {
+		if (existingComment.userId == id) {
 			return res.status(404).json('CANNOT REPLY TO YOUR OWN COMMENT');
 		}
 
 		const comment = await createComment({
 			content,
-			creatorId: id,
+			userId: id,
 			blogId: existingComment.blogId,
 			parentCommentId: commentId,
 		});
